@@ -1,0 +1,36 @@
+<!--- Header -->
+<ion-header>
+  <ion-navbar padding>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <button ion-button float-right (click)="closeSession()">
+      Cerrar sesión
+    </button>
+  </ion-navbar>
+</ion-header>
+<!--- Content -->
+<ion-content>
+  <ion-grid>
+    <ion-row>
+          <ion-searchbar [(ngModel)]="searchText" placeholder="Filtro por: bookingId/bookingPrice" aria-label="Username"></ion-searchbar>
+          <div *ngIf="profile">
+              <ion-card *ngFor="let profile of profile | grdFilter: {bookingId: searchText, bookingPrice:searchText}; let i=index;">
+                  <ion-card-content >
+                    <ion-card-title >
+                      Cliente: {{profile.bookingId}}
+                      </ion-card-title>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">bookingId: {{profile.bookingId}}</li>
+                      <li class="list-group-item">Cliente: {{profile.tutenUserClient.firstName}} {{profile.tutenUserClient.lastName}}</li>
+                      <li class="list-group-item">Fecha de Creación: {{profile.bookingTime | date}}</li>
+                      <li class="list-group-item">Dirección {{profile.locationId.streetAddress}}</li>
+                      <li class="list-group-item">Precio: {{profile.bookingPrice}}</li>
+                    </ul>
+      
+                  </ion-card-content>
+                </ion-card>
+          </div>
+    </ion-row>
+  </ion-grid>
+</ion-content>
